@@ -1,0 +1,36 @@
+#Habilita o endpoint /actuator/beans
+management:
+  endpoint:
+    beans:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+spring:
+  application:
+    name: covid-metrics
+  data.mongodb:
+    host : mongo
+    port : 27017
+    database : covid
+  rabbitmq:
+    host: rabbitmq
+    port: 5672
+    dynamic: true
+    username: guest
+    password: guest
+  cloud:
+    stream:
+      bindings:
+        input:
+          destination: covid-exchange
+          group: covid-queue
+        output:
+          destination: covid-exchange
+          group: covid-queue
+firebase-api:
+  endpoint: https://api.covid19api.com
+
+
+

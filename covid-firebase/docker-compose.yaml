@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  #web:
+  #  build: .
+  #  depends_on:
+  #    - mongo
+  #    - rabbitmq
+  #  ports:
+  #    - "8080:8080"
+
+  mongo:
+    image: mongo
+    hostname: "mongo"
+    ports:
+      - "27017:27017"
+
+  rabbitmq:
+    image: rabbitmq:management
+    hostname: "rabbitmq"
+    expose:
+      - "5672"
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+

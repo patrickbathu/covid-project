@@ -1,0 +1,23 @@
+#Habilita o endpoint /actuator/beans
+management:
+  endpoint:
+    beans:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  rabbitmq:
+    host: localhost
+    port: 5672
+    dynamic: true
+    username: guest
+    password: guest
+
+firebase-api:
+  endpoint: https://patrickbathu-d382a.firebaseio.com/
+  covid: covid.json
+  covid-id: covid/{id}.json
+server:
+  port: 8081
+
