@@ -1,0 +1,29 @@
+#Habilita o endpoint /actuator/beans
+management:
+  endpoint:
+    beans:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+spring:
+  application:
+    name: covid-batch
+  rabbitmq:
+    host: localhost
+    port: 5672
+    dynamic: true
+    username: guest
+    password: guest
+
+api-covid:
+  endpoint: https://api.covid19api.com
+  countriesRoute: /countries
+  countryDayOneRoute: /dayone/country/{country}
+  countryStatusLiveRoute: /country/{country}/status/{status}/live
+  countryDayOneTotalRoute: /total/dayone/country/{country}
+
+server:
+  port: 8083
+

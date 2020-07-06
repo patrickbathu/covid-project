@@ -12,7 +12,7 @@ public class RabbitMq {
     public static final String COVID_EXCHANGE =  "covid-exchange";
 
     //prefixo
-    public static final String QUEUE_NAME_PREFIX =  "covid.";
+    public static final String QUEUE_NAME_PREFIX =  "covid.metrics.";
 
     //routes
     public static final String COVID_ROUTING_KEY =  "queue.update";

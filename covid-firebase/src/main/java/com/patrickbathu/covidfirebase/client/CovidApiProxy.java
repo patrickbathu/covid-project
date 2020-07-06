@@ -18,8 +18,8 @@ public class CovidApiProxy {
     @Autowired
     private CovidApiClient covidApiClient;
 
-    public CovidDayOne putCovid(CovidDayOne covidDayOne, String id){
+    public CovidDayOne putCovid(CovidDayOne covidDayOne){
         log.info("CovidApiProxy.putCovid - start - covidDayOne [{}]", covidDayOne.toString());
-        return covidApiClient.putCovid(covidDayOne, id);
+        return covidApiClient.putCovid(covidDayOne, covidDayOne.getDate());
     }
 }

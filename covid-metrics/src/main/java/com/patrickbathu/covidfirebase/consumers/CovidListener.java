@@ -3,7 +3,6 @@ package com.patrickbathu.covidfirebase.consumers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.patrickbathu.covidfirebase.client.CovidFirebaseClient;
 import com.patrickbathu.covidfirebase.constants.RabbitMq;
 import com.patrickbathu.covidfirebase.dto.CovidDayOne;
 import com.patrickbathu.covidfirebase.repository.CovidDayOneRepository;
@@ -17,30 +16,25 @@ import java.util.List;
 
 @Slf4j
 @Component
-public class MySimpleListener {
+public class CovidListener {
 
     @Autowired
     private CovidDayOneRepository covidDayOneRepository;
-
-    @Autowired
-    private CovidFirebaseClient covidFirebaseClient;
-
 
     @RabbitListener(queues = RabbitMq.COVID_QUEUE)
     public void process(@Payload String msg) {
         CovidDayOne covid = (CovidDayOne) parseStringToObject(msg, CovidDayOne.class);
 
-        log.info("MySimpleListener.process msg:[{}]", msg);
+        log.info("CovidListener.process msg:[{}]", msg);
 
         if(isSave(covid)){
             CovidDayOne covidDayOne = covidDayOneRepository.save(covid);
-            covidFirebaseClient.putCovidFirebase(covidDayOne, covidDayOne.get_id());
-            log.info("MySimpleListener.process save:[{}]", covidDayOne.toString());
+            log.info("CovidListener.process save:[{}]", covidDayOne.toString());
         }else {
-            log.info("MySimpleListener.process - NO UPDATE");
+            log.info("CovidListener.process - NO UPDATE");
         }
 
-        log.info("MySimpleListener.process - end");
+        log.info("CovidListener.process - end");
     }
 
     private boolean isSave(CovidDayOne msg){

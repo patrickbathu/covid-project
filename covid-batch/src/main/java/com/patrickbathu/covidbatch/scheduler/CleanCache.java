@@ -1,4 +1,4 @@
-package com.patrickbathu.covidfirebase.scheduler;
+package com.patrickbathu.covidbatch.scheduler;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

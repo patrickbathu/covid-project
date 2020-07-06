@@ -1,12 +1,12 @@
 package com.patrickbathu.covidfirebase.services;
 
-import com.patrickbathu.covidfirebase.client.CovidApiProxy;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.patrickbathu.covidfirebase.dto.CovidDayOne;
-import com.patrickbathu.covidfirebase.producers.MyCustom;
 import com.patrickbathu.covidfirebase.repository.CovidDayOneRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,45 +18,38 @@ import java.util.List;
 public class CovidService {
 
     @Autowired
-    private CovidApiProxy covidApiProxy;
-
-    @Autowired
     private CovidDayOneRepository covidDayOneRepository;
 
-    @Autowired
-    private MyCustom myCustom;
-
-    public ResponseEntity<String> updateBaseCovid(){
-        return covidApiProxy.getCountries();
-    }
-
-    public void getCountryDayOneRoute(){
-        log.info("CovidService.updateBase - start");
-        List<CovidDayOne> list = covidApiProxy.getCountryDayOne();
-
-        log.info("CovidService.updateBase [{}]", list.toString());
-
-        for(CovidDayOne item : list){
-            sendMessages(item);
-        }
-
-        log.info("CovidService.updateBase - end");
-    }
-
     public  List<CovidDayOne> getAll(){
+        log.info("CovidService.getAll - start");
         List<CovidDayOne> covidAll = covidDayOneRepository.findAll();
-
+        log.info("CovidService.getAll - end");
         return covidAll;
     }
 
-    private void sendMessages(CovidDayOne covidDayOne){
-        try {
-            log.info("CovidService.sendMessages msg: [{}]", covidDayOne.toString());
-            myCustom.send(covidDayOne);
-        }catch (Exception e){
-            log.error("CovidService.sendMessages  ERROR:[{}] ", e);
+    private boolean isSave(CovidDayOne msg){
+        List<CovidDayOne> listBase = covidDayOneRepository.findAll();
+
+        for(CovidDayOne item : listBase){
+            if(item.getDate().equals(msg.getDate())){
+                return Boolean.FALSE;
+            }
         }
 
+        return Boolean.TRUE;
     }
+
+    private static Object parseStringToObject(String value, Class<?> type){
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            return mapper.readValue(value, type);
+        } catch (JsonMappingException e) {
+            e.printStackTrace();
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 
 }

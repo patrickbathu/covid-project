@@ -1,6 +1,6 @@
-package com.patrickbathu.covidfirebase.client;
+package com.patrickbathu.covidbatch.client;
 
-import com.patrickbathu.covidfirebase.dto.CovidDayOne;
+import com.patrickbathu.covidbatch.dto.CovidDayOne;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

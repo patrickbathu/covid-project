@@ -20,10 +20,10 @@ public class CovidService {
 
     private static final double CEM = 0.100;
 
-    public void putCovidFirebase(CovidDayOne payload, String id){
+    public void putCovidFirebase(CovidDayOne payload){
         log.info("CovidService.updateBase - start");
         log.info("CovidService.updateBase - payload [{}]", payload.toString());
-        covidApiProxy.putCovid(payload, id);
+        covidApiProxy.putCovid(payload);
         log.info("CovidService.updateBase - end");
     }
 

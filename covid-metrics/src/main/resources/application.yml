@@ -20,15 +20,7 @@ spring:
     dynamic: true
     username: guest
     password: guest
-  cloud:
-    stream:
-      bindings:
-        input:
-          destination: covid-exchange
-          group: covid-queue
-        output:
-          destination: covid-exchange
-          group: covid-queue
+
 api-covid:
   endpoint: https://api.covid19api.com
   countriesRoute: /countries

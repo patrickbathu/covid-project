@@ -1,6 +1,6 @@
-package com.patrickbathu.covidfirebase.client;
+package com.patrickbathu.covidbatch.client;
 
-import com.patrickbathu.covidfirebase.dto.CovidDayOne;
+import com.patrickbathu.covidbatch.dto.CovidDayOne;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
