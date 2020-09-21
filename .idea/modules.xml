@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/covid-batch/covid-batch.iml" filepath="$PROJECT_DIR$/covid-batch/covid-batch.iml" />
+      <module fileurl="file://$PROJECT_DIR$/covid-firebase/covid-firebase.iml" filepath="$PROJECT_DIR$/covid-firebase/covid-firebase.iml" />
+      <module fileurl="file://$PROJECT_DIR$/covid-metrics/covid-metrics.iml" filepath="$PROJECT_DIR$/covid-metrics/covid-metrics.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/covid-project.iml" filepath="$PROJECT_DIR$/.idea/covid-project.iml" />
+    </modules>
+  </component>
+</project>

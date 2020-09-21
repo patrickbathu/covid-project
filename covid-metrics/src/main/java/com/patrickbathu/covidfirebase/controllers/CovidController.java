@@ -26,7 +26,7 @@ public class CovidController {
 
     @GetMapping(value = "/v1/service/up", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity getServiceUp(){
-        return new ResponseEntity<String>(HttpStatus.OK);
+        return new ResponseEntity<String>("success" , HttpStatus.OK);
     }
 
 }

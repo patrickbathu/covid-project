@@ -8,7 +8,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Configuration
 public class RabbitConfig {
@@ -16,17 +18,6 @@ public class RabbitConfig {
     public static final String XDLE = "x-dead-letter-exchange";
 
     public static final String XDLRK = "x-dead-letter-routing-key";
-
-    @Bean
-    public TopicExchange covidExchange()
-    {
-        return new TopicExchange(RabbitMq.COVID_EXCHANGE);
-    }
-
-    @Bean
-    public MessageConverter jsonMessageConverter(){
-        return new Jackson2JsonMessageConverter();
-    }
 
     @Bean
     public Queue covidQueue(){
@@ -40,10 +31,10 @@ public class RabbitConfig {
     }
 
     @Bean
-    List<Binding> bindings(){
-        return Arrays.asList(
-                BindingBuilder.bind(covidQueue()).to(covidExchange())
-                    .with(RabbitMq.COVID_ROUTING_KEY));
+    public Declarables bindings(){
+        return new Declarables(
+                new Binding(RabbitMq.COVID_QUEUE, Binding.DestinationType.QUEUE, RabbitMq.COVID_EXCHANGE, RabbitMq.COVID_ROUTING_KEY, null)
+        );
     }
 
 }

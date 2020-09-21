@@ -18,17 +18,6 @@ public class RabbitConfig {
     public static final String XDLRK = "x-dead-letter-routing-key";
 
     @Bean
-    public TopicExchange covidExchange()
-    {
-        return new TopicExchange(RabbitMq.COVID_EXCHANGE);
-    }
-
-    @Bean
-    public MessageConverter jsonMessageConverter(){
-        return new Jackson2JsonMessageConverter();
-    }
-
-    @Bean
     public Queue covidQueue(){
         return QueueBuilder.durable(RabbitMq.COVID_QUEUE).withArgument(XDLE, "")
                 .withArgument(XDLRK, RabbitMq.COVID_QUEUE_DEAD).build();
@@ -39,11 +28,19 @@ public class RabbitConfig {
         return QueueBuilder.durable(RabbitMq.COVID_QUEUE_DEAD).build();
     }
 
+//    @Bean
+//    public Declarables queues(){
+//        return new Declarables(
+//                new Queue(RabbitMq.COVID_QUEUE, true),
+//                new Queue(RabbitMq.COVID_QUEUE_DEAD, true )
+//        );
+//    }
+
     @Bean
-    List<Binding> bindings(){
-        return Arrays.asList(
-                BindingBuilder.bind(covidQueue()).to(covidExchange())
-                    .with(RabbitMq.COVID_ROUTING_KEY));
+    public Declarables bindings(){
+        return new Declarables(
+                new Binding(RabbitMq.COVID_QUEUE, Binding.DestinationType.QUEUE, RabbitMq.COVID_EXCHANGE, RabbitMq.COVID_ROUTING_KEY, null)
+        );
     }
 
 }
